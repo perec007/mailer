@@ -15,37 +15,40 @@ Create postfix container with smtp authentication
 	# Set multiple user credentials: -e smtp_user=user1:pwd1,user2:pwd2,...,userN:pwdN
 	```
 
-Enable OpenDKIM: 
-	```bash
-	# cd /etc/opendkim/keys
-	# opendkim-genkey  -d example.com -s example
+# Enable OpenDKIM: 
+#1. Gen key	
+```bash
+	 cd /etc/opendkim/keys
+	 opendkim-genkey  -d example.com -s example
 	modify files:
 		- /etc/opendkim/KeyTable
 		- /etc/opendkim/SigningTable
 		- /etc/opendkim/TrustedHosts 
+```
+
+#2. Add DNS Record from  ```example.txt``` file  
 	
-	+ ADD DNS Record from  ```example.txt``` file  
-	```
 
 
-	```bash
+```bash
 	$ sudo docker run -p 25:25 \
 			-e maildomain=mail.example.com -e smtp_user=user:pwd \
 			-v /path/to/domainkeys:/etc/opendkim/domainkeys \
 			--name postfix -d catatnight/postfix
-	```
+```
 
-3. Enable TLS(587): save your SSL certificates ```.key``` and ```.crt``` to  ```/path/to/certs```
+#Enable TLS
+Enable TLS(587): save your SSL certificates ```.key``` and ```.crt``` to  ```/path/to/certs```
 
-	```bash
+```bash
 	$ sudo docker run -p 587:587 \
 			-e maildomain=example.com -e smtp_user=user:pwd \
 			-v /path/to/certs:/etc/postfix/certs \
 			--name postfix -d catatnight/postfix
-	```
+```
 
 
-example docker-compose
+# Example docker-compose
 ```
 mailer-example:
     image: casp/mailer
