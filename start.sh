@@ -3,7 +3,7 @@
 
 postconf -e myhostname=$maildomain
 
-
+echo "Add auth sasl user(s)"
 echo $smtp_user | tr , \\n > /tmp/passwd
 while IFS=':' read -r _user _pwd; do
   echo $_pwd | saslpasswd2 -p -c -u $maildomain $_user
@@ -15,6 +15,7 @@ chown postfix.sasl /etc/sasldb2
 ############
 if [[ -d /etc/postfix/certs ]]; then 
   if [[ -n "$(find /etc/postfix/certs -iname *.crt)" && -n "$(find /etc/postfix/certs -iname *.key)" ]]; then
+    echo Enable certs
     # /etc/postfix/main.cf
     postconf -e smtpd_tls_cert_file=$(find /etc/postfix/certs -iname *.crt)
     postconf -e smtpd_tls_key_file=$(find /etc/postfix/certs -iname *.key)
@@ -58,5 +59,5 @@ cat > /etc/opendkim/SigningTable <<EOF
 EOF
 fi
 
-
+echo START CONTAINER
 /usr/bin/supervisord -c /etc/supervisor/supervisord.conf

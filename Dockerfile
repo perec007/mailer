@@ -23,7 +23,7 @@ ADD cfg/opendkim_default /etc/default/opendkim
 ADD cfg/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 COPY postfix.sh /
-ADD ./start.sh /
+ADD start.sh /
 
 
 CMD /start.sh
