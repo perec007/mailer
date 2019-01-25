@@ -1,4 +1,4 @@
-postfix mailer
+# postfix mailer
 ==============
 
 run postfix with smtp authentication (sasldb) in a docker container.
@@ -15,8 +15,8 @@ Create postfix container with smtp authentication
 	# Set multiple user credentials: -e smtp_user=user1:pwd1,user2:pwd2,...,userN:pwdN
 	```
 
-# Enable OpenDKIM: 
-#1. Gen key	
+## Enable OpenDKIM: 
+### 1. Gen key	
 ```bash
 	 cd /etc/opendkim/keys
 	 opendkim-genkey  -d example.com -s example
@@ -26,7 +26,7 @@ Create postfix container with smtp authentication
 		- /etc/opendkim/TrustedHosts 
 ```
 
-#2. Add DNS Record from  ```example.txt``` file  
+###2. Add DNS Record from  ```example.txt``` file  
 	
 
 
@@ -37,7 +37,7 @@ Create postfix container with smtp authentication
 			--name postfix -d catatnight/postfix
 ```
 
-#Enable TLS
+## Enable TLS
 Enable TLS(587): save your SSL certificates ```.key``` and ```.crt``` to  ```/path/to/certs```
 
 ```bash
@@ -48,7 +48,7 @@ Enable TLS(587): save your SSL certificates ```.key``` and ```.crt``` to  ```/pa
 ```
 
 
-# Example docker-compose
+## Example docker-compose
 ```
 mailer-example:
     image: casp/mailer
