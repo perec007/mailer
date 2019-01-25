@@ -8,12 +8,12 @@ TLS and OpenDKIM support are optional.
 ## Usage
 Create postfix container with smtp authentication
 
-	```bash
+```bash
 	$ sudo docker run -p 25:25 \
 			-e maildomain=mail.example.com -e smtp_user=user:pwd \
 			--name postfix -d catatnight/postfix
 	# Set multiple user credentials: -e smtp_user=user1:pwd1,user2:pwd2,...,userN:pwdN
-	```
+```
 
 ## Enable OpenDKIM: 
 ### 1. Gen key	
